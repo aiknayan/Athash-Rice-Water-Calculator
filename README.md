@@ -1,4 +1,4 @@
-# 🍚 Panasonic SR-DL184 Rice & Water Calculator (Athash Rice Edition) 💧
+# 🍚 Panasonic SR-DL184 Rice & Water Calculator <br> (Athash Rice Edition) 💧
 
 > **Because life is too short for mushy rice or crunchy surprises.**  
 > An ultra-sleek, interactive, physics-powered companion for cooking **Athash Rice (আঠাশ চাল)** in the **Panasonic SR-DL184 10-Cup (1.8L) Microcomputer Rice Cooker**.
