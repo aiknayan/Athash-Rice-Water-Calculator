@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panasonic SR-DL184 Rice & Water Calculator</title>
+  <meta name="description" content="Clean interactive calculator for Panasonic SR-DL184 Rice Cooker. Select rice amount and see exact water measurements.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍚</text></svg>">
+</head>
+<body>
+  <div class="app-wrapper">
+    
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-pill">Panasonic SR-DL184</div>
+      <h1 class="main-title">Rice &amp; Water Calculator</h1>
+      <p class="main-desc">Specially Calibrated for Athash Rice</p>
+    </header>
+
+    <!-- STEP 1: Select Rice Amount -->
+    <section class="card selector-card">
+      <div class="card-title-bar">
+        <span class="step-badge">1</span>
+        <h2>Select Rice Amount</h2>
+      </div>
+
+      <!-- Quick Select Buttons (0.5 to 5.0 Cups) -->
+      <div class="quick-pill-row" id="quickButtons">
+        <button class="pill-btn" data-cups="0.5">0.5 Cup</button>
+        <button class="pill-btn" data-cups="1.0">1.0 Cup</button>
+        <button class="pill-btn" data-cups="1.5">1.5 Cups</button>
+        <button class="pill-btn active" data-cups="2.0"><span class="pill-label">2.0 Cups</span> <span class="pill-star">⭐</span></button>
+        <button class="pill-btn" data-cups="2.5">2.5 Cups</button>
+        <button class="pill-btn" data-cups="3.0">3.0 Cups</button>
+        <button class="pill-btn" data-cups="3.5">3.5 Cups</button>
+        <button class="pill-btn" data-cups="4.0">4.0 Cups</button>
+        <button class="pill-btn" data-cups="4.5">4.5 Cups</button>
+        <button class="pill-btn" data-cups="5.0">5.0 Cups</button>
+      </div>
+
+      <!-- Stepper Controls & Slider -->
+      <div class="stepper-wrap">
+        <button id="btnMinus" class="stepper-btn" title="Decrease 0.25 cup">−</button>
+        <div class="stepper-value-block">
+          <span id="displayRiceCups" class="stepper-number">2.0</span>
+          <span class="stepper-unit">Cups of Rice</span>
+          <span id="displayRiceMl" class="stepper-sub">(320 ml)</span>
+        </div>
+        <button id="btnPlus" class="stepper-btn" title="Increase 0.25 cup">+</button>
+      </div>
+
+      <div class="slider-track-wrap">
+        <input type="range" id="riceSlider" class="clean-slider" min="0.25" max="5.0" step="0.25" value="2.0">
+        <div class="slider-marks">
+          <span>0.5c</span>
+          <span>1.0c</span>
+          <span>2.0c ⭐</span>
+          <span>3.0c</span>
+          <span>4.0c</span>
+          <span>5.0c (Max)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2: Rice Cooker Inner Pot & Pouring Formula -->
+    <section class="card pot-stage-card">
+      <div class="card-title-bar">
+        <span class="step-badge">2</span>
+        <h2>Rice Cooker Inner Pot</h2>
+      </div>
+
+      <div class="pot-stage-layout">
+        <!-- The Binchotan Pot Visualizer with Clustered Pouring Bouquet -->
+        <div class="pot-display-area">
+          <svg viewBox="0 0 440 370" class="clean-pot-svg" id="potSvg">
+            <defs>
+              <linearGradient id="potRimGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#475569"/>
+                <stop offset="25%" stop-color="#94a3b8"/>
+                <stop offset="50%" stop-color="#ffffff"/>
+                <stop offset="75%" stop-color="#94a3b8"/>
+                <stop offset="100%" stop-color="#475569"/>
+              </linearGradient>
+
+              <radialGradient id="binchotanPotGrad" cx="50%" cy="55%" r="58%">
+                <stop offset="0%" stop-color="#263140"/>
+                <stop offset="60%" stop-color="#141c26"/>
+                <stop offset="100%" stop-color="#0a0f16"/>
+              </radialGradient>
+
+              <linearGradient id="riceBedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="60%" stop-color="#f1f5f9"/>
+                <stop offset="100%" stop-color="#cbd5e1"/>
+              </linearGradient>
+
+              <linearGradient id="potWaterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.90"/>
+                <stop offset="45%" stop-color="#38bdf8" stop-opacity="0.75"/>
+                <stop offset="100%" stop-color="#0284c7" stop-opacity="0.85"/>
+              </linearGradient>
+
+              <linearGradient id="waterStreamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+                <stop offset="25%" stop-color="#bae6fd" stop-opacity="0.92"/>
+                <stop offset="65%" stop-color="#38bdf8" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#0284c7" stop-opacity="0.88"/>
+              </linearGradient>
+
+              <radialGradient id="dropletGlowGrad" cx="35%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="40%" stop-color="#7dd3fc"/>
+                <stop offset="100%" stop-color="#0284c7"/>
+              </radialGradient>
+
+              <linearGradient id="cupWaterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.95"/>
+                <stop offset="60%" stop-color="#38bdf8" stop-opacity="0.80"/>
+                <stop offset="100%" stop-color="#0284c7" stop-opacity="0.90"/>
+              </linearGradient>
+
+              <!-- Interior clip path for rice and water -->
+              <clipPath id="potInteriorClip">
+                <path d="M 44 68 C 44 180, 56 280, 88 322 C 116 346, 324 346, 352 322 C 384 280, 396 180, 396 68 Z"/>
+              </clipPath>
+
+              <pattern id="riceGrainsPattern" width="18" height="14" patternUnits="userSpaceOnUse">
+                <ellipse cx="5" cy="5" rx="4" ry="2" fill="#ffffff" opacity="0.9" transform="rotate(-15 5 5)"/>
+                <ellipse cx="14" cy="9" rx="4.2" ry="2.1" fill="#f8fafc" opacity="0.85" transform="rotate(22 14 9)"/>
+              </pattern>
+            </defs>
+
+            <!-- Ground Shadow -->
+            <ellipse cx="220" cy="354" rx="160" ry="12" fill="#000000" opacity="0.5"/>
+
+            <!-- Outer Metallic Lip Rim -->
+            <path d="M 26 48 C 26 42, 414 42, 414 48 L 404 70 C 404 70, 36 70, 36 70 Z" 
+                  fill="url(#potRimGrad)" stroke="#334155" stroke-width="1.5"/>
+
+            <!-- Dark Binchotan Outer Wall -->
+            <path d="M 36 66 C 36 180, 50 282, 84 326 C 114 352, 326 352, 356 326 C 390 282, 404 180, 404 66 Z" 
+                  fill="url(#binchotanPotGrad)" stroke="#334155" stroke-width="2.5"/>
+
+            <!-- Inner subtle metallic rim line -->
+            <path d="M 44 70 C 44 175, 56 272, 88 318" stroke="rgba(255, 255, 255, 0.16)" stroke-width="2" fill="none"/>
+
+            <!-- Contents (Clipped to inner bowl) -->
+            <g clip-path="url(#potInteriorClip)">
+              <!-- Rice at Bottom (Strictly horizontal straight line) -->
+              <rect id="svgPotRiceRect" x="30" y="289" width="380" height="60" fill="url(#riceBedGrad)"/>
+              <rect id="svgPotRicePattern" x="30" y="289" width="380" height="60" fill="url(#riceGrainsPattern)"/>
+              <line id="svgPotRiceLine" x1="40" y1="289" x2="400" y2="289" stroke="#ffffff" stroke-width="2"/>
+
+              <!-- Water Layer Above (Strictly horizontal straight line) -->
+              <rect id="svgPotWaterRect" x="30" y="231" width="380" height="58" fill="url(#potWaterGrad)"/>
+              <line id="svgPotWaterLine" x1="40" y1="231" x2="400" y2="231" stroke="#ffffff" stroke-width="2.5"/>
+            </g>
+
+            <!-- Stamped Scale on Left Wall (Panasonic 10-Cup Pot Lines) -->
+            <g class="pot-gauge-group">
+              <text x="58" y="86" font-size="9" font-weight="900" fill="#94a3b8" letter-spacing="1.2">CUP</text>
+              
+              <!-- Line 10 (Y = 105) -->
+              <line id="potLine10" x1="52" y1="105" x2="76" y2="105" stroke="#94a3b8" stroke-width="2"/>
+              <text id="potText10" x="82" y="108.5" font-size="11" font-weight="800" fill="#cbd5e1">10</text>
+              <!-- Notch 9 -->
+              <line x1="54" y1="126" x2="70" y2="126" stroke="rgba(148, 163, 184, 0.45)" stroke-width="1.2"/>
+
+              <!-- Line 8 (Y = 147) -->
+              <line id="potLine8" x1="56" y1="147" x2="80" y2="147" stroke="#94a3b8" stroke-width="2"/>
+              <text id="potText8" x="86" y="150.5" font-size="11" font-weight="800" fill="#cbd5e1">8</text>
+              <!-- Notch 7 -->
+              <line x1="58" y1="168" x2="74" y2="168" stroke="rgba(148, 163, 184, 0.45)" stroke-width="1.2"/>
+
+              <!-- Line 6 (Y = 189) -->
+              <line id="potLine6" x1="60" y1="189" x2="84" y2="189" stroke="#94a3b8" stroke-width="2"/>
+              <text id="potText6" x="90" y="192.5" font-size="11" font-weight="800" fill="#cbd5e1">6</text>
+              <!-- Notch 5 -->
+              <line x1="63" y1="210" x2="79" y2="210" stroke="rgba(148, 163, 184, 0.45)" stroke-width="1.2"/>
+
+              <!-- Line 4 (Y = 231) -->
+              <line id="potLine4" x1="66" y1="231" x2="90" y2="231" stroke="#38bdf8" stroke-width="2.4"/>
+              <text id="potText4" x="96" y="234.5" font-size="12" font-weight="900" fill="#38bdf8">4</text>
+              <!-- Notch 3 -->
+              <line x1="70" y1="252" x2="86" y2="252" stroke="rgba(148, 163, 184, 0.45)" stroke-width="1.2"/>
+
+              <!-- Line 2 (Y = 273) -->
+              <line id="potLine2" x1="74" y1="273" x2="98" y2="273" stroke="#94a3b8" stroke-width="2"/>
+              <text id="potText2" x="104" y="276.5" font-size="11" font-weight="800" fill="#cbd5e1">2</text>
+              <!-- Notch 1 -->
+              <line x1="79" y1="294" x2="94" y2="294" stroke="rgba(148, 163, 184, 0.45)" stroke-width="1.2"/>
+            </g>
+
+            <!-- Interactive Water Pouring Animation Layer (Hidden by default, vanishes immediately when pour completes) -->
+            <g id="svgPourAnimationLayer" opacity="0" pointer-events="none" style="transition: opacity 0.2s ease;">
+              <!-- Container dynamically populated with realistic cups and real cascading drops -->
+              <g id="svgDynamicPourGroup"></g>
+            </g>
+
+            <!-- Sleek HUD Pointers on Right (NO line number beside water!) -->
+            <g id="svgHudWater" transform="translate(0, 231)">
+              <line id="svgHudWaterLine" x1="260" y1="0" x2="225" y2="0" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <circle id="svgHudWaterDot" cx="225" cy="0" r="2.5" fill="#38bdf8"/>
+              <rect x="260" y="-13" width="135" height="26" rx="6" fill="#0b1320" stroke="#38bdf8" stroke-width="1.4"/>
+              <text id="svgHudWaterText" x="327" y="4.5" font-size="11" font-weight="800" text-anchor="middle" fill="#38bdf8">
+                💧 Water: 880 ml
+              </text>
+            </g>
+
+            <g id="svgHudRice" transform="translate(0, 289)">
+              <line id="svgHudRiceLine" x1="260" y1="0" x2="225" y2="0" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <circle id="svgHudRiceDot" cx="225" cy="0" r="2.5" fill="#ffffff"/>
+              <rect x="260" y="-13" width="135" height="26" rx="6" fill="#0b1320" stroke="rgba(255,255,255,0.4)" stroke-width="1.4"/>
+              <text id="svgHudRiceText" x="327" y="4.5" font-size="11" font-weight="800" text-anchor="middle" fill="#ffffff">
+                🍚 Rice: 320 ml
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Pouring Formula: Right side in 2 rows on desktop; bottom side-by-side on mobile. Title NOT bold -->
+        <div class="pot-side-formula">
+          <div class="formula-title">POURING FORMULA:</div>
+          <div id="cupsGrid" class="formula-items-wrap">
+            <!-- Dynamically populated formula cards -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: Quick Reference Table -->
+    <section class="card table-card">
+      <div class="card-title-bar">
+        <span class="step-badge">3</span>
+        <h2>Quick Reference Table (Athash Rice)</h2>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Rice Amount</th>
+              <th>Rice Volume</th>
+              <th>Water Needed</th>
+              <th>How To Measure (160ml Cup)</th>
+              <th>Pot Level</th>
+            </tr>
+          </thead>
+          <tbody id="cheatsheetBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "panasonic-sr-dl184-rice-calculator",
+  "version": "1.0.0",
+  "description": "Interactive animated Rice & Water Calculator for Panasonic SR-DL184 10-Cup Rice Cooker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "rice-cooker",
+    "panasonic",
+    "sr-dl184",
+    "calculator",
+    "kitchen",
+    "animation"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

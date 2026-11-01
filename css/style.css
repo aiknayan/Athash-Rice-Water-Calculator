@@ -1,0 +1,872 @@
+/* 
+ * Panasonic SR-DL184 Rice & Water Calculator
+ * Ultra-Clean, Balanced, and Responsive Modern UI
+ */
+
+:root {
+  --bg-dark: #0a0e17;
+  --bg-card: #131b27;
+  --bg-card-inner: rgba(10, 14, 23, 0.6);
+  --border-card: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(56, 189, 248, 0.4);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --water-cyan: #38bdf8;
+  --water-cyan-dark: #0284c7;
+  --gold-accent: #fbbf24;
+  --emerald: #10b981;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: radial-gradient(circle at 50% 0%, #162030 0%, #0a0e17 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+  padding: 24px 16px 48px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.brand-pill {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid var(--water-cyan);
+  color: var(--water-cyan);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.main-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.main-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Card Common */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.card-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.card-title-bar h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.step-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--water-cyan);
+  color: #0a0e17;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.card-subtext {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: block;
+}
+
+/* STEP 1: Rice Selector Card */
+.quick-pill-row {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.pill-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-card);
+  color: var(--text-muted);
+  padding: 9px 2px;
+  border-radius: var(--radius-md);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+  white-space: nowrap !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.pill-label {
+  white-space: nowrap;
+}
+
+.pill-star {
+  display: inline-block;
+  line-height: 1;
+  font-size: 11px;
+}
+
+.pill-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.pill-btn.active {
+  background: var(--water-cyan);
+  color: #0a0e17;
+  border-color: var(--water-cyan);
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+  transform: translateY(-1px);
+}
+
+.stepper-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.stepper-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-card);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.stepper-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: var(--water-cyan);
+  color: var(--water-cyan);
+}
+
+.stepper-value-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 140px;
+}
+
+.stepper-number {
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.stepper-unit {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.stepper-sub {
+  font-size: 12px;
+  color: var(--water-cyan);
+  font-family: var(--font-mono);
+}
+
+.slider-track-wrap {
+  margin-top: 6px;
+}
+
+.clean-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #253347;
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.clean-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--water-cyan);
+  box-shadow: 0 0 10px var(--water-cyan);
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+
+.slider-marks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 6px;
+  padding: 0 4px;
+}
+
+/* STEP 2: Rice Cooker Inner Pot Stage Card */
+.pot-stage-card {
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Desktop: Pot on Left, Pouring Formula on Right with 2 rows! */
+.pot-stage-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(240px, 310px);
+  gap: 22px;
+  align-items: center;
+  justify-content: center;
+}
+
+.pot-display-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 0;
+}
+
+/* The Rice Cooker Pot */
+.clean-pot-svg {
+  width: 100%;
+  max-width: 480px;
+  height: 360px;
+  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.55));
+  transition: all 0.3s ease;
+}
+
+/* POURING FORMULA PANEL (Right side of pot on desktop in 2 rows) */
+.pot-side-formula {
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+/* User requirement: "And POURING FORMULA text should not be bold" */
+.formula-title {
+  font-size: 11px;
+  font-weight: 500 !important; /* STRICTLY UNBOLDED */
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-dim);
+  line-height: 1.2;
+}
+
+/* 2 ROWS on Desktop! */
+.formula-items-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.formula-badge-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  width: 100%;
+}
+
+.formula-badge-card:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  transform: translateY(-1px);
+}
+
+.formula-mult {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--water-cyan);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.formula-mini-svg {
+  flex-shrink: 0;
+  width: 26px;
+  height: 38px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+.formula-text-block {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  min-width: 0;
+}
+
+.formula-main-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.formula-sub-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.formula-plus-sign {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-align: center;
+  margin: -2px 0;
+  line-height: 1;
+}
+
+/* Organic Flowing Waterfall Stream Animations */
+@keyframes streamFlow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -36;
+  }
+}
+
+@keyframes streamFlowRev {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 28;
+  }
+}
+
+.flowing-stream-anim {
+  animation: streamFlow 0.35s linear infinite;
+}
+
+.flowing-stream-anim-rev {
+  animation: streamFlowRev 0.4s linear infinite;
+}
+
+/* Pouring Animation & Ripples */
+@keyframes waterRipples {
+  0% {
+    rx: 4px;
+    ry: 1.5px;
+    opacity: 0.95;
+  }
+  50% {
+    rx: 16px;
+    ry: 4px;
+    opacity: 0.7;
+  }
+  100% {
+    rx: 26px;
+    ry: 6.5px;
+    opacity: 0;
+  }
+}
+
+.animating-splash {
+  animation: waterRipples 0.5s infinite ease-out;
+}
+
+@keyframes sprayBurst {
+  0% {
+    opacity: 0.9;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(var(--dx, 6px), -10px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx2, 10px), 2px) scale(0.3);
+  }
+}
+
+.animating-spray-1 {
+  --dx: -10px; --dx2: -16px;
+  animation: sprayBurst 0.38s infinite ease-out;
+}
+.animating-spray-2 {
+  --dx: 12px; --dx2: 18px;
+  animation: sprayBurst 0.36s 0.08s infinite ease-out;
+}
+.animating-spray-3 {
+  --dx: -6px; --dx2: -12px;
+  animation: sprayBurst 0.4s 0.04s infinite ease-out;
+}
+.animating-spray-4 {
+  --dx: 8px; --dx2: 14px;
+  animation: sprayBurst 0.34s 0.12s infinite ease-out;
+}
+
+/* Smooth Transitions for Dynamic Elements */
+#svgPotRiceRect,
+#svgPotRicePattern,
+#svgPotRiceLine,
+#svgPotWaterRect,
+#svgPotWaterLine,
+#svgHudWater,
+#svgHudRice {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Direct frame-by-frame animation during live multi-cup pour */
+.clean-pot-svg.pouring-in-progress #svgPotWaterRect,
+.clean-pot-svg.pouring-in-progress #svgPotWaterLine,
+.clean-pot-svg.pouring-in-progress #svgHudWater,
+.clean-pot-svg.pouring-in-progress #svgCupDrainWater,
+.clean-pot-svg.pouring-in-progress #svgCupDrainWaterLine {
+  transition: none !important;
+}
+
+/* Active Scale Markings */
+.scale-group line,
+.scale-group text,
+.pot-gauge-group line,
+.pot-gauge-group text {
+  transition: all 0.25s ease;
+}
+
+.scale-group.active-target line {
+  stroke: var(--gold-accent) !important;
+  stroke-width: 2.8 !important;
+  filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.8));
+}
+
+.scale-group.active-target text {
+  fill: var(--gold-accent) !important;
+  font-size: 12.5px !important;
+  filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.8));
+}
+
+.pot-gauge-group line.active-pot-line {
+  stroke: var(--water-cyan) !important;
+  stroke-width: 2.8 !important;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+}
+
+.pot-gauge-group text.active-pot-line {
+  fill: var(--water-cyan) !important;
+  font-size: 13.5px !important;
+  font-weight: 900 !important;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+}
+
+/* STEP 4: Table Card */
+.table-card {
+  overflow: hidden;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+  min-width: 580px;
+}
+
+.data-table th {
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border-card);
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+}
+
+.data-table tr {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.data-table tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.data-table tr.selected-row {
+  background: rgba(56, 189, 248, 0.1);
+  border-left: 3px solid var(--water-cyan);
+}
+
+.data-table tr.benchmark-row {
+  background: rgba(251, 191, 36, 0.08);
+  border-left: 3px solid var(--gold-accent);
+}
+
+.star-tag {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--gold-accent);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+}
+
+.measure-pill {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  color: #fff;
+  font-size: 12px;
+}
+
+/* ============================================================
+   SUPER-RESPONSIVE MEDIA QUERIES (Mobile, Tablet & Small Screens)
+   ============================================================ */
+
+/* Tablet & Medium Screens */
+@media (max-width: 860px) {
+  .pot-stage-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .clean-pot-svg {
+    max-width: 480px;
+    height: 330px;
+  }
+
+  /* On mobile/tablet, formula moves below pot, displayed side-by-side */
+  .pot-side-formula {
+    background: transparent;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0;
+    padding: 14px 0 0;
+    margin: 4px auto 0;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .formula-title {
+    text-align: center;
+    font-weight: 500 !important; /* STRICTLY UNBOLDED */
+    margin-bottom: 8px;
+  }
+
+  .formula-items-wrap {
+    flex-direction: row !important; /* SIDE BY SIDE ON MOBILE */
+    flex-wrap: nowrap !important;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .formula-badge-card {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .formula-plus-sign {
+    margin: 0;
+  }
+}
+
+/* Mobile Screens (Phones) */
+@media (max-width: 640px) {
+  body {
+    padding: 16px 10px 36px;
+  }
+
+  .app-header {
+    margin-bottom: 16px;
+  }
+
+  .main-title {
+    font-size: 22px;
+  }
+
+  .main-desc {
+    font-size: 12px;
+  }
+
+  .card {
+    padding: 16px 12px;
+    border-radius: var(--radius-md);
+    margin-bottom: 14px;
+  }
+
+  .card-title-bar {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .card-title-bar h2 {
+    font-size: 15px;
+  }
+
+  .step-badge {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+
+  /* Quick Pills: 2 rows of 5 buttons with in-line star */
+  .quick-pill-row {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .pill-btn {
+    padding: 8px 2px;
+    font-size: 10px;
+    min-height: 36px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap !important;
+    gap: 2px;
+  }
+
+  .stepper-wrap {
+    padding: 8px 12px;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .stepper-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .stepper-number {
+    font-size: 26px;
+  }
+
+  .stepper-unit {
+    font-size: 11px;
+  }
+
+  .slider-marks {
+    font-size: 9px;
+  }
+
+  .clean-pot-svg {
+    max-width: 100%;
+    height: 280px;
+  }
+
+  /* Minimalist Formula Cards strictly side-by-side on mobile */
+  .pot-side-formula {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .formula-title {
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: 500 !important; /* STRICTLY UNBOLDED */
+    margin-bottom: 6px;
+  }
+
+  .formula-items-wrap {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 6px;
+    max-width: 100%;
+  }
+
+  .formula-badge-card {
+    padding: 6px 8px;
+    gap: 6px;
+    border-radius: 9px;
+  }
+
+  .formula-mult {
+    font-size: 16px;
+  }
+
+  .formula-mini-svg {
+    width: 20px;
+    height: 30px;
+  }
+
+  .formula-main-name {
+    font-size: 11px;
+  }
+
+  .formula-sub-name {
+    font-size: 9px;
+  }
+
+  .formula-plus-sign {
+    font-size: 13px;
+    margin: 0;
+  }
+
+  .data-table th, 
+  .data-table td {
+    padding: 8px 10px;
+    font-size: 11.5px;
+  }
+}
+
+/* Extra Small Phones (< 380px) */
+@media (max-width: 380px) {
+  body {
+    padding: 10px 6px 28px;
+  }
+
+  .quick-pill-row {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+  }
+
+  .pill-btn {
+    padding: 6px 1px;
+    font-size: 9px;
+    gap: 1px;
+  }
+
+  .stepper-number {
+    font-size: 22px;
+  }
+
+  .clean-pot-svg {
+    max-width: 100%;
+    height: 220px;
+  }
+
+  .formula-items-wrap {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 4px;
+  }
+
+  .formula-badge-card {
+    padding: 5px 6px;
+    gap: 4px;
+    border-radius: 8px;
+  }
+
+  .formula-mult {
+    font-size: 14px;
+  }
+
+  .formula-mini-svg {
+    width: 17px;
+    height: 26px;
+  }
+
+  .formula-main-name {
+    font-size: 10px;
+  }
+
+  .formula-sub-name {
+    font-size: 8px;
+  }
+
+  .formula-plus-sign {
+    font-size: 11px;
+  }
+}
