@@ -512,24 +512,17 @@ body {
 }
 
 /* Stamped Scale on Left Inner Wall (Panasonic SR-DL184 Pot Gauge) */
-.gauge-recess-track {
-  fill: rgba(8, 14, 26, 0.5);
-  stroke: rgba(255, 255, 255, 0.08);
-  stroke-width: 1px;
-}
-
 .pot-gauge-group line {
   stroke: #ffffff;
-  stroke-width: 2.2px;
+  stroke-width: 2px;
   stroke-linecap: round;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95));
-  transition: all 0.25s ease;
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.8));
 }
 
 .pot-gauge-group line.notch-line {
-  stroke: rgba(255, 255, 255, 0.7);
-  stroke-width: 1.5px;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95));
+  stroke: rgba(255, 255, 255, 0.65);
+  stroke-width: 1.3px;
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.8));
 }
 
 .pot-gauge-group text {
@@ -537,11 +530,10 @@ body {
   font-size: 11px;
   font-weight: 800;
   paint-order: stroke fill;
-  stroke: rgba(10, 15, 26, 0.95);
-  stroke-width: 2.5px;
+  stroke: rgba(10, 15, 26, 0.9);
+  stroke-width: 2px;
   stroke-linejoin: round;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.95));
-  transition: all 0.25s ease;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.75));
 }
 
 .pot-gauge-group .gauge-cup-label {
@@ -549,25 +541,8 @@ body {
   font-size: 9px;
   font-weight: 900;
   letter-spacing: 1.2px;
-  stroke: rgba(10, 15, 26, 0.95);
-  stroke-width: 2px;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9));
-}
-
-/* Active Stamped Line: Radiant Gold (Contrasts sharply with cyan water!) */
-.pot-gauge-group line.active-pot-line {
-  stroke: #fbbf24 !important;
-  stroke-width: 3.2px !important;
-  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.95)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) !important;
-}
-
-.pot-gauge-group text.active-pot-line {
-  fill: #fbbf24 !important;
-  font-size: 13.5px !important;
-  font-weight: 900 !important;
-  stroke: rgba(10, 15, 26, 0.95) !important;
-  stroke-width: 2.8px !important;
-  filter: drop-shadow(0 0 7px rgba(251, 191, 36, 0.95)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) !important;
+  stroke: rgba(10, 15, 26, 0.9);
+  stroke-width: 1.5px;
 }
 
 /* STEP 4: Table Card */

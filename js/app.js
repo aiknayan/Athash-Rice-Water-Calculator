@@ -73,24 +73,7 @@ function calculateWater(riceCups) {
   };
 }
 
-/**
- * Highlights active stamped line on pot left wall
- */
-function highlightPotLine(activeLineNum) {
-  [1, 2, 4, 6, 8, 10].forEach(num => {
-    const lineEl = document.getElementById(`potLine${num}`);
-    const textEl = document.getElementById(`potText${num}`);
-    if (lineEl && textEl) {
-      if (activeLineNum && num === activeLineNum) {
-        lineEl.classList.add('active-pot-line');
-        textEl.classList.add('active-pot-line');
-      } else {
-        lineEl.classList.remove('active-pot-line');
-        textEl.classList.remove('active-pot-line');
-      }
-    }
-  });
-}
+
 
 /**
  * Updates the Water HUD badge position with collision avoidance against the Rice HUD badge.
@@ -182,9 +165,6 @@ function runSimultaneousMultiCupPour(data) {
       svgPotWaterLine.setAttribute('y2', targetWaterY);
     }
     updateWaterHudBadge(targetWaterY, riceY, data.totalWaterMl);
-
-    const closestLine = [1, 2, 4, 6, 8, 10].find(num => Math.abs(potLineNum - num) <= 0.25);
-    highlightPotLine(closestLine || null);
 
     // Immediately vanish cup layer (no lingering cups)
     layer.style.opacity = '0';
@@ -652,9 +632,7 @@ function updatePotVisual(data) {
       svgPotWaterLine.setAttribute('y1', waterY);
       svgPotWaterLine.setAttribute('y2', waterY);
     }
-      updateWaterHudBadge(waterY, riceY, data.totalWaterMl);
-    const closestLine = [1, 2, 4, 6, 8, 10].find(num => Math.abs(potLineNum - num) <= 0.25);
-    highlightPotLine(closestLine || null);
+    updateWaterHudBadge(waterY, riceY, data.totalWaterMl);
   }
 
   // 3. Rice HUD Callout (Always visible)
