@@ -5,7 +5,7 @@
  */
 
 const CUP_CAPACITY_ML = 160;
-const WATER_RATIO = 2.75; // 880 ml water for 2 cups rice (440 ml/cup)
+const WATER_RATIO = 3.25; // 1040 ml (6.5 cups) water for 2 cups rice (520 ml/cup) -> Reaches Line 4 accurately!
 const CHEATSHEET_DATA = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0];
 
 let selectedRiceCups = 2.0;
