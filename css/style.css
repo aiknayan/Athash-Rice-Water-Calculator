@@ -131,11 +131,11 @@ body {
   display: block;
 }
 
-/* STEP 1: Rice Selector Card */
+/* STEP 1: Rice Selector Card - 2 Rows on Desktop (6 buttons per row) */
 .quick-pill-row {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 5px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
   margin-bottom: 16px;
   width: 100%;
 }
@@ -144,10 +144,10 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-card);
   color: var(--text-muted);
-  padding: 0 2px;
-  height: 36px;
+  padding: 0 4px;
+  height: 38px;
   border-radius: var(--radius-md);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
@@ -156,7 +156,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 4px;
   min-width: 0;
   box-sizing: border-box;
 }
@@ -511,37 +511,63 @@ body {
   transition: none !important;
 }
 
-/* Active Scale Markings */
-.scale-group line,
-.scale-group text,
-.pot-gauge-group line,
-.pot-gauge-group text {
+/* Stamped Scale on Left Inner Wall (Panasonic SR-DL184 Pot Gauge) */
+.gauge-recess-track {
+  fill: rgba(8, 14, 26, 0.5);
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1px;
+}
+
+.pot-gauge-group line {
+  stroke: #ffffff;
+  stroke-width: 2.2px;
+  stroke-linecap: round;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95));
   transition: all 0.25s ease;
 }
 
-.scale-group.active-target line {
-  stroke: var(--gold-accent) !important;
-  stroke-width: 2.8 !important;
-  filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.8));
+.pot-gauge-group line.notch-line {
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1.5px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95));
 }
 
-.scale-group.active-target text {
-  fill: var(--gold-accent) !important;
-  font-size: 12.5px !important;
-  filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.8));
+.pot-gauge-group text {
+  fill: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  paint-order: stroke fill;
+  stroke: rgba(10, 15, 26, 0.95);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.95));
+  transition: all 0.25s ease;
 }
 
+.pot-gauge-group .gauge-cup-label {
+  fill: #cbd5e1;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  stroke: rgba(10, 15, 26, 0.95);
+  stroke-width: 2px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9));
+}
+
+/* Active Stamped Line: Radiant Gold (Contrasts sharply with cyan water!) */
 .pot-gauge-group line.active-pot-line {
-  stroke: var(--water-cyan) !important;
-  stroke-width: 2.8 !important;
-  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+  stroke: #fbbf24 !important;
+  stroke-width: 3.2px !important;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.95)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) !important;
 }
 
 .pot-gauge-group text.active-pot-line {
-  fill: var(--water-cyan) !important;
+  fill: #fbbf24 !important;
   font-size: 13.5px !important;
   font-weight: 900 !important;
-  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+  stroke: rgba(10, 15, 26, 0.95) !important;
+  stroke-width: 2.8px !important;
+  filter: drop-shadow(0 0 7px rgba(251, 191, 36, 0.95)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) !important;
 }
 
 /* STEP 4: Table Card */
@@ -713,21 +739,25 @@ body {
     font-size: 11px;
   }
 
-  /* Quick Pills: 2 rows of 6 buttons with in-line star */
+  /* Quick Pills: 3 rows of 4 buttons for mobile view */
   .quick-pill-row {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 4px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
     margin-bottom: 12px;
   }
 
   .pill-btn {
     padding: 0 2px;
-    font-size: 10px;
+    font-size: 10.5px;
     height: 36px;
     font-weight: 700;
     border-radius: var(--radius-sm);
     white-space: nowrap !important;
     gap: 2px;
+  }
+
+  .pill-star {
+    font-size: 9.5px;
   }
 
   .stepper-wrap {
@@ -821,13 +851,13 @@ body {
   }
 
   .quick-pill-row {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 3px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
   }
 
   .pill-btn {
-    padding: 0 1px;
-    font-size: 9px;
+    padding: 0 2px;
+    font-size: 10px;
     height: 34px;
     font-weight: 700;
     gap: 1px;

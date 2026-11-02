@@ -77,7 +77,7 @@ function calculateWater(riceCups) {
  * Highlights active stamped line on pot left wall
  */
 function highlightPotLine(activeLineNum) {
-  [2, 4, 6, 8, 10].forEach(num => {
+  [1, 2, 4, 6, 8, 10].forEach(num => {
     const lineEl = document.getElementById(`potLine${num}`);
     const textEl = document.getElementById(`potText${num}`);
     if (lineEl && textEl) {
@@ -183,7 +183,7 @@ function runSimultaneousMultiCupPour(data) {
     }
     updateWaterHudBadge(targetWaterY, riceY, data.totalWaterMl);
 
-    const closestLine = [2, 4, 6, 8, 10].find(num => Math.abs(potLineNum - num) <= 0.25);
+    const closestLine = [1, 2, 4, 6, 8, 10].find(num => Math.abs(potLineNum - num) <= 0.25);
     highlightPotLine(closestLine || null);
 
     // Immediately vanish cup layer (no lingering cups)
@@ -653,7 +653,7 @@ function updatePotVisual(data) {
       svgPotWaterLine.setAttribute('y2', waterY);
     }
       updateWaterHudBadge(waterY, riceY, data.totalWaterMl);
-    const closestLine = [2, 4, 6, 8, 10].find(num => Math.abs(potLineNum - num) <= 0.25);
+    const closestLine = [1, 2, 4, 6, 8, 10].find(num => Math.abs(potLineNum - num) <= 0.25);
     highlightPotLine(closestLine || null);
   }
 
