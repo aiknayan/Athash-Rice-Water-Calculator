@@ -76,9 +76,13 @@ function calculateWater(riceCups) {
 const POT_NUMBERED_LINES = [
   { num: 1, y: 294 },
   { num: 2, y: 273 },
+  { num: 3, y: 252 },
   { num: 4, y: 231 },
+  { num: 5, y: 210 },
   { num: 6, y: 189 },
+  { num: 7, y: 168 },
   { num: 8, y: 147 },
+  { num: 9, y: 126 },
   { num: 10, y: 105 }
 ];
 
@@ -106,12 +110,6 @@ function updatePotGaugeLines(currentWaterY) {
         textEl.classList.remove('active-pot-line');
       }
     }
-  });
-
-  // Ensure notches don't glow
-  [3, 5, 7, 9].forEach(n => {
-    const notchEl = document.getElementById(`potNotch${n}`);
-    if (notchEl) notchEl.classList.remove('active-pot-line');
   });
 }
 
@@ -683,7 +681,7 @@ function updatePotVisual(data) {
     svgHudRice.setAttribute('transform', `translate(0, ${riceY})`);
   }
   if (svgHudRiceText) {
-    svgHudRiceText.textContent = `🍚 Rice: ${data.riceCups} Cup${data.riceCups > 1 ? 's' : ''} (${data.riceMl} ml)`;
+    svgHudRiceText.textContent = `🍚 Raw Rice: ${data.riceCups} Cup${data.riceCups > 1 ? 's' : ''} (${data.riceMl} ml)`;
   }
 }
 
