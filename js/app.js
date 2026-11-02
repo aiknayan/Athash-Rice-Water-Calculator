@@ -73,7 +73,49 @@ function calculateWater(riceCups) {
   };
 }
 
+const POT_SCALE_LINES = [
+  { num: 1, y: 294 },
+  { num: 2, y: 273 },
+  { isNotch: true, elId: 'potNotch3', y: 252 },
+  { num: 4, y: 231 },
+  { isNotch: true, elId: 'potNotch5', y: 210 },
+  { num: 6, y: 189 },
+  { isNotch: true, elId: 'potNotch7', y: 168 },
+  { num: 8, y: 147 },
+  { isNotch: true, elId: 'potNotch9', y: 126 },
+  { num: 10, y: 105 }
+];
 
+/**
+ * Updates the glow effect on pot gauge lines:
+ * Whenever water reaches or crosses a line, that number & line light up with the glowing cyan effect!
+ */
+function updatePotGaugeLines(currentWaterY) {
+  POT_SCALE_LINES.forEach(item => {
+    // Water has crossed or reached this line if currentWaterY <= item.y + 2
+    const isCrossed = currentWaterY <= (item.y + 2);
+
+    if (item.isNotch) {
+      const notchEl = document.getElementById(item.elId);
+      if (notchEl) {
+        if (isCrossed) notchEl.classList.add('active-pot-line');
+        else notchEl.classList.remove('active-pot-line');
+      }
+    } else {
+      const lineEl = document.getElementById(`potLine${item.num}`);
+      const textEl = document.getElementById(`potText${item.num}`);
+      if (lineEl && textEl) {
+        if (isCrossed) {
+          lineEl.classList.add('active-pot-line');
+          textEl.classList.add('active-pot-line');
+        } else {
+          lineEl.classList.remove('active-pot-line');
+          textEl.classList.remove('active-pot-line');
+        }
+      }
+    }
+  });
+}
 
 /**
  * Updates the Water HUD badge position with collision avoidance against the Rice HUD badge.
@@ -165,6 +207,7 @@ function runSimultaneousMultiCupPour(data) {
       svgPotWaterLine.setAttribute('y2', targetWaterY);
     }
     updateWaterHudBadge(targetWaterY, riceY, data.totalWaterMl);
+    updatePotGaugeLines(targetWaterY);
 
     // Immediately vanish cup layer (no lingering cups)
     layer.style.opacity = '0';
@@ -386,6 +429,7 @@ function runSimultaneousMultiCupPour(data) {
           svgPotWaterLine.setAttribute('y2', currentPotWaterY);
         }
         updateWaterHudBadge(currentPotWaterY, riceY, currentWaterMl);
+        updatePotGaugeLines(currentPotWaterY);
 
         // 3. Update each cup's dynamic tilt angle, fluid stream, and real cascading droplets
         stageItems.forEach(item => {
@@ -633,6 +677,7 @@ function updatePotVisual(data) {
       svgPotWaterLine.setAttribute('y2', waterY);
     }
     updateWaterHudBadge(waterY, riceY, data.totalWaterMl);
+    updatePotGaugeLines(waterY);
   }
 
   // 3. Rice HUD Callout (Always visible)
