@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Panasonic SR-DL184 Rice & Water Calculator</title>
   <meta name="description" content="Clean interactive calculator for Panasonic SR-DL184 Rice Cooker. Select rice amount and see exact water measurements.">
-  <link rel="stylesheet" href="css/style.css?v=3.6">
+  <link rel="stylesheet" href="css/style.css?v=3.7">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍚</text></svg>">
 </head>
 <body>
@@ -95,11 +95,11 @@
                 <stop offset="100%" stop-color="#0a0f16"/>
               </radialGradient>
 
+              <!-- Uncooked raw white rice bed -->
               <linearGradient id="riceBedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fffdf2"/>
-                <stop offset="35%" stop-color="#fefce8"/>
-                <stop offset="70%" stop-color="#fef3c7"/>
-                <stop offset="100%" stop-color="#fde68a"/>
+                <stop offset="0%" stop-color="#faf8f2"/>
+                <stop offset="45%" stop-color="#f2ebe0"/>
+                <stop offset="100%" stop-color="#e4d9c8"/>
               </linearGradient>
 
               <linearGradient id="potWaterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -127,106 +127,80 @@
                 <stop offset="100%" stop-color="#0284c7" stop-opacity="0.90"/>
               </linearGradient>
 
-              <!-- Interior clip path for rice and water: realistic flat-bottom pot base at Y=316 -->
+              <!-- Interior clip path for rice and water -->
               <clipPath id="potInteriorClip">
-                <path d="M 44 68 C 44 175, 56 270, 85 298 C 96 310, 108 316, 126 316 L 314 316 C 332 316, 344 310, 355 298 C 384 270, 396 175, 396 68 Z"/>
+                <path d="M 44 68 C 44 180, 56 280, 88 322 C 116 346, 324 346, 352 322 C 384 280, 396 180, 396 68 Z"/>
               </clipPath>
 
-              <!-- Authentic Raw Uncooked Athash Rice Grain Pattern: Slender, elongated, tapered pointed kernels -->
-              <pattern id="riceGrainsPattern" width="22" height="14" patternUnits="userSpaceOnUse">
-                <!-- Raw Athash Grain 1: Long slender grain, horizontal with pointed tips -->
-                <path d="M 1 4 C 3 2.5, 8 2.5, 11 4 C 8 5.5, 3 5.5, 1 4 Z" 
-                      fill="#fffef2" stroke="rgba(217, 119, 6, 0.35)" stroke-width="0.5"/>
-                <line x1="3" y1="4" x2="9" y2="4" stroke="rgba(255, 255, 255, 0.85)" stroke-width="0.6"/>
-
-                <!-- Raw Athash Grain 2: Slender angled kernel -->
-                <path d="M 12 4.5 C 14 3.1, 19 3.2, 21.5 4.8 C 19 6.2, 14 6.1, 12 4.5 Z" 
-                      fill="#fefce8" stroke="rgba(217, 119, 6, 0.32)" stroke-width="0.5" transform="rotate(-6 16.7 4.6)"/>
-                <line x1="14" y1="4.5" x2="19.5" y2="4.8" stroke="rgba(255, 255, 255, 0.75)" stroke-width="0.6"/>
-
-                <!-- Raw Athash Grain 3: Staggered row, slightly tilted -->
-                <path d="M 6.5 11 C 8.5 9.5, 13.5 9.6, 16.5 11.2 C 13.5 12.8, 8.5 12.7, 6.5 11 Z" 
-                      fill="#fef9c3" stroke="rgba(217, 119, 6, 0.38)" stroke-width="0.5" transform="rotate(7 11.5 11.1)"/>
-                <line x1="8.5" y1="11" x2="14.5" y2="11.2" stroke="rgba(255, 255, 255, 0.8)" stroke-width="0.6"/>
-
-                <!-- Raw Athash Grain 4: Edge wrap grain left -->
-                <path d="M -4 10.5 C -2 9, 3 9.1, 5.5 10.7 C 3 12.3, -2 12.2, -4 10.5 Z" 
-                      fill="#fffdf0" stroke="rgba(217, 119, 6, 0.32)" stroke-width="0.5" transform="rotate(-5 0.7 10.6)"/>
-                <!-- Raw Athash Grain 4: Edge wrap grain right -->
-                <path d="M 18 10.5 C 20 9, 25 9.1, 27.5 10.7 C 25 12.3, 20 12.2, 18 10.5 Z" 
-                      fill="#fffdf0" stroke="rgba(217, 119, 6, 0.32)" stroke-width="0.5" transform="rotate(-5 22.7 10.6)"/>
+              <!-- Slender, dry raw polished white rice grains -->
+              <pattern id="riceGrainsPattern" width="16" height="10" patternUnits="userSpaceOnUse">
+                <ellipse cx="4" cy="3" rx="4.6" ry="1.2" fill="#ffffff" opacity="0.92" transform="rotate(-12 4 3)"/>
+                <ellipse cx="12" cy="7" rx="4.8" ry="1.25" fill="#fdfbf7" opacity="0.88" transform="rotate(18 12 7)"/>
+                <ellipse cx="8" cy="9" rx="4.2" ry="1.1" fill="#ede3d2" opacity="0.75" transform="rotate(-5 8 9)"/>
               </pattern>
             </defs>
 
             <!-- Ground Shadow -->
-            <ellipse cx="220" cy="336" rx="145" ry="9" fill="#000000" opacity="0.45"/>
+            <ellipse cx="220" cy="354" rx="160" ry="12" fill="#000000" opacity="0.5"/>
 
             <!-- Outer Metallic Lip Rim -->
             <path d="M 26 48 C 26 42, 414 42, 414 48 L 404 70 C 404 70, 36 70, 36 70 Z" 
                   fill="url(#potRimGrad)" stroke="#334155" stroke-width="1.5"/>
 
             <!-- Dark Binchotan Outer Wall -->
-            <path d="M 36 66 C 36 175, 48 272, 79 302 C 92 316, 104 323, 124 323 L 316 323 C 336 323, 348 316, 361 302 C 392 272, 404 175, 404 66 Z" 
+            <path d="M 36 66 C 36 180, 50 282, 84 326 C 114 352, 326 352, 356 326 C 390 282, 404 180, 404 66 Z" 
                   fill="url(#binchotanPotGrad)" stroke="#334155" stroke-width="2.5"/>
 
             <!-- Inner subtle metallic rim line -->
-            <path d="M 44 70 C 44 175, 56 268, 85 298 C 95 310, 106 316, 124 316" stroke="rgba(255, 255, 255, 0.16)" stroke-width="2" fill="none"/>
+            <path d="M 44 70 C 44 175, 56 272, 88 318" stroke="rgba(255, 255, 255, 0.16)" stroke-width="2" fill="none"/>
 
             <!-- Contents (Clipped to inner bowl) -->
             <g clip-path="url(#potInteriorClip)">
               <!-- Rice at Bottom (Strictly horizontal straight line) -->
               <rect id="svgPotRiceRect" x="30" y="289" width="380" height="60" fill="url(#riceBedGrad)"/>
               <rect id="svgPotRicePattern" x="30" y="289" width="380" height="60" fill="url(#riceGrainsPattern)"/>
-              <line id="svgPotRiceLine" x1="40" y1="289" x2="400" y2="289" stroke="#fef08a" stroke-width="2"/>
+              <line id="svgPotRiceLine" x1="40" y1="289" x2="400" y2="289" stroke="#e8ded0" stroke-width="1.8"/>
 
               <!-- Water Layer Above (Strictly horizontal straight line) -->
               <rect id="svgPotWaterRect" x="30" y="244" width="380" height="45" fill="url(#potWaterGrad)"/>
               <line id="svgPotWaterLine" x1="40" y1="244" x2="400" y2="244" stroke="#ffffff" stroke-width="2.5"/>
             </g>
 
-            <!-- Stamped Scale on Left Wall (Panasonic 10-Cup Pot Lines: Every level 1 to 10 with uniform 21px spacing) -->
+            <!-- Stamped Scale on Left Wall (Panasonic 10-Cup Pot Lines) -->
             <g class="pot-gauge-group">
-              <text class="gauge-cup-label" x="60" y="86" font-size="9" font-weight="900" letter-spacing="1.2">CUP</text>
+              <text class="gauge-cup-label" x="58" y="86" font-size="9" font-weight="900" letter-spacing="1.2">CUP</text>
               
               <!-- Line 10 (Y = 105) -->
-              <line id="potLine10" class="major-pot-line" x1="52" y1="105" x2="74" y2="105"/>
-              <text id="potText10" class="major-pot-text" x="81" y="108.5">10</text>
-
-              <!-- Line 9 (Y = 126) -->
-              <line id="potLine9" class="minor-pot-line" x1="54" y1="126" x2="76" y2="126"/>
-              <text id="potText9" class="minor-pot-text" x="83" y="129.5">9</text>
+              <line id="potLine10" x1="52" y1="105" x2="76" y2="105"/>
+              <text id="potText10" x="82" y="108.5">10</text>
+              <!-- Notch 9 -->
+              <line id="potNotch9" class="notch-line" x1="54" y1="126" x2="70" y2="126"/>
 
               <!-- Line 8 (Y = 147) -->
-              <line id="potLine8" class="major-pot-line" x1="57" y1="147" x2="79" y2="147"/>
-              <text id="potText8" class="major-pot-text" x="86" y="150.5">8</text>
-
-              <!-- Line 7 (Y = 168) -->
-              <line id="potLine7" class="minor-pot-line" x1="60" y1="168" x2="82" y2="168"/>
-              <text id="potText7" class="minor-pot-text" x="89" y="171.5">7</text>
+              <line id="potLine8" x1="56" y1="147" x2="80" y2="147"/>
+              <text id="potText8" x="86" y="150.5">8</text>
+              <!-- Notch 7 -->
+              <line id="potNotch7" class="notch-line" x1="58" y1="168" x2="74" y2="168"/>
 
               <!-- Line 6 (Y = 189) -->
-              <line id="potLine6" class="major-pot-line" x1="63" y1="189" x2="85" y2="189"/>
-              <text id="potText6" class="major-pot-text" x="92" y="192.5">6</text>
-
-              <!-- Line 5 (Y = 210) -->
-              <line id="potLine5" class="minor-pot-line" x1="67" y1="210" x2="89" y2="210"/>
-              <text id="potText5" class="minor-pot-text" x="96" y="213.5">5</text>
+              <line id="potLine6" x1="60" y1="189" x2="84" y2="189"/>
+              <text id="potText6" x="90" y="192.5">6</text>
+              <!-- Notch 5 -->
+              <line id="potNotch5" class="notch-line" x1="63" y1="210" x2="79" y2="210"/>
 
               <!-- Line 4 (Y = 231) -->
-              <line id="potLine4" class="major-pot-line" x1="71" y1="231" x2="93" y2="231"/>
-              <text id="potText4" class="major-pot-text" x="100" y="234.5">4</text>
-
-              <!-- Line 3 (Y = 252) -->
-              <line id="potLine3" class="minor-pot-line" x1="75" y1="252" x2="97" y2="252"/>
-              <text id="potText3" class="minor-pot-text" x="104" y="255.5">3</text>
+              <line id="potLine4" x1="66" y1="231" x2="90" y2="231"/>
+              <text id="potText4" x="96" y="234.5">4</text>
+              <!-- Notch 3 -->
+              <line id="potNotch3" class="notch-line" x1="70" y1="252" x2="86" y2="252"/>
 
               <!-- Line 2 (Y = 273) -->
-              <line id="potLine2" class="major-pot-line" x1="80" y1="273" x2="102" y2="273"/>
-              <text id="potText2" class="major-pot-text" x="109" y="276.5">2</text>
+              <line id="potLine2" x1="74" y1="273" x2="98" y2="273"/>
+              <text id="potText2" x="104" y="276.5">2</text>
 
               <!-- Line 1 (Y = 294) -->
-              <line id="potLine1" class="minor-pot-line" x1="85" y1="294" x2="107" y2="294"/>
-              <text id="potText1" class="minor-pot-text" x="114" y="297.5">1</text>
+              <line id="potLine1" x1="78" y1="294" x2="102" y2="294"/>
+              <text id="potText1" x="108" y="297.5">1</text>
             </g>
 
             <!-- Interactive Water Pouring Animation Layer (Hidden by default, vanishes immediately when pour completes) -->
@@ -237,20 +211,20 @@
 
             <!-- Sleek HUD Pointers on Right (NO line number beside water!) -->
             <g id="svgHudWater" transform="translate(0, 244)">
-              <line id="svgHudWaterLine" x1="250" y1="0" x2="225" y2="0" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <line id="svgHudWaterLine" x1="260" y1="0" x2="225" y2="0" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 2"/>
               <circle id="svgHudWaterDot" cx="225" cy="0" r="2.5" fill="#38bdf8"/>
-              <rect x="250" y="-13" width="155" height="26" rx="6" fill="#0b1320" stroke="#38bdf8" stroke-width="1.4"/>
+              <rect x="260" y="-13" width="135" height="26" rx="6" fill="#0b1320" stroke="#38bdf8" stroke-width="1.4"/>
               <text id="svgHudWaterText" x="327" y="4.5" font-size="11" font-weight="800" text-anchor="middle" fill="#38bdf8">
                 💧 Water: 880 ml
               </text>
             </g>
 
             <g id="svgHudRice" transform="translate(0, 289)">
-              <line id="svgHudRiceLine" x1="250" y1="0" x2="225" y2="0" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="3 2"/>
-              <circle id="svgHudRiceDot" cx="225" cy="0" r="2.5" fill="#fef08a"/>
-              <rect x="250" y="-13" width="155" height="26" rx="6" fill="#0b1320" stroke="rgba(254, 240, 138, 0.45)" stroke-width="1.4"/>
-              <text id="svgHudRiceText" x="327" y="4.5" font-size="11" font-weight="800" text-anchor="middle" fill="#fef08a">
-                🍚 Raw Rice: 320 ml
+              <line id="svgHudRiceLine" x1="260" y1="0" x2="225" y2="0" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="3 2"/>
+              <circle id="svgHudRiceDot" cx="225" cy="0" r="2.5" fill="#ffffff"/>
+              <rect x="260" y="-13" width="135" height="26" rx="6" fill="#0b1320" stroke="rgba(255,255,255,0.4)" stroke-width="1.4"/>
+              <text id="svgHudRiceText" x="327" y="4.5" font-size="11" font-weight="800" text-anchor="middle" fill="#ffffff">
+                🍚 Rice: 320 ml
               </text>
             </g>
           </svg>
@@ -292,6 +266,6 @@
 
   </div>
 
-  <script src="js/app.js?v=3.6"></script>
+  <script src="js/app.js?v=3.7"></script>
 </body>
 </html>
