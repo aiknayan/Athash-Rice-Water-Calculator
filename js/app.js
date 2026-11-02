@@ -5,8 +5,9 @@
  */
 
 const CUP_CAPACITY_ML = 160;
-const WATER_RATIO = 3.25; // 1040 ml (6.5 cups) water for 2 cups rice (520 ml/cup) -> Reaches Line 4 accurately!
-const CHEATSHEET_DATA = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0];
+const WATER_RATIO = 2.75; // 880 ml (5.5 cups) water for 2 cups rice (440 ml/cup)
+const CUPS_PER_LINE = 6.5 / 4; // 1.625 cups of water per pot line (Real pot: 2 cups rice + 6.5 cups water fills Line 4)
+const CHEATSHEET_DATA = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0];
 
 let selectedRiceCups = 2.0;
 let activePourSequenceId = 0;
@@ -53,7 +54,8 @@ function calculateWater(riceCups) {
     summary = partialText || "0 Cups";
   }
 
-  const potGaugeLine = (riceCups * 2).toFixed(riceCups % 0.5 === 0 ? 0 : 1);
+  const potLineNum = totalWaterCups / CUPS_PER_LINE;
+  const potGaugeLine = potLineNum.toFixed(1);
 
   return {
     riceCups,
@@ -79,7 +81,7 @@ function highlightPotLine(activeLineNum) {
     const lineEl = document.getElementById(`potLine${num}`);
     const textEl = document.getElementById(`potText${num}`);
     if (lineEl && textEl) {
-      if (num === activeLineNum) {
+      if (activeLineNum && num === activeLineNum) {
         lineEl.classList.add('active-pot-line');
         textEl.classList.add('active-pot-line');
       } else {
@@ -142,10 +144,11 @@ function runSimultaneousMultiCupPour(data) {
   const seqId = ++activePourSequenceId;
   isPouring = true;
 
-  // Geometry calculations
+  // Geometry calculations: real pot calibrated (2c rice + 6.5c water = Line 4)
   const riceHeight = Math.min(65, Math.max(12, data.riceCups * 13));
   const riceY = 315 - riceHeight;
-  const targetWaterY = Math.max(70, 315 - (data.riceCups * 42));
+  const potLineNum = data.totalWaterCups / CUPS_PER_LINE;
+  const targetWaterY = Math.max(70, 315 - (potLineNum * 21));
   const totalWaterRise = riceY - targetWaterY;
 
   const fullVolume = data.fullCups * CUP_CAPACITY_ML;
@@ -180,7 +183,8 @@ function runSimultaneousMultiCupPour(data) {
     }
     updateWaterHudBadge(targetWaterY, riceY, data.totalWaterMl);
 
-    highlightPotLine(Math.round(data.riceCups * 2));
+    const closestLine = [2, 4, 6, 8, 10].find(num => Math.abs(potLineNum - num) <= 0.25);
+    highlightPotLine(closestLine || null);
 
     // Immediately vanish cup layer (no lingering cups)
     layer.style.opacity = '0';
@@ -613,12 +617,12 @@ function updatePotVisual(data) {
   const svgHudRice = document.getElementById('svgHudRice');
   const svgHudRiceText = document.getElementById('svgHudRiceText');
 
-  // Exact Pot Calibration (viewBox 0 0 440 370):
-  // Inner Base at Y = 315
-  // Stamped lines: Line 2=273, Line 4=231, Line 6=189, Line 8=147, Line 10=105
-  // 42px per 2 cups (21px per 1 cup line on the pot gauge)
-  // For 2.0 cups rice: water hits Line 4 (Y = 315 - 2.0*42 = 231) EXACTLY!
-  const waterY = Math.max(70, 315 - (data.riceCups * 42));
+  // Exact Real-World Pot Calibration (viewBox 0 0 440 370):
+  // Inner Base at Y = 315. Stamped lines: Line 2=273, Line 4=231, Line 6=189, Line 8=147, Line 10=105 (21px per line).
+  // Real measurement: 2.0c rice + 6.5c water reaches Line 4 (1.625 cups of water per line).
+  // For 2.0c rice with 5.5c water: level reaches Line 3.4 (decreased below Line 4 to Y = 244!).
+  const potLineNum = data.totalWaterCups / CUPS_PER_LINE;
+  const waterY = Math.max(70, 315 - (potLineNum * 21));
 
   // 1. Rice bed firmly on bottom (Straight horizontal line):
   const riceHeight = Math.min(65, Math.max(12, data.riceCups * 13));
@@ -649,7 +653,8 @@ function updatePotVisual(data) {
       svgPotWaterLine.setAttribute('y2', waterY);
     }
       updateWaterHudBadge(waterY, riceY, data.totalWaterMl);
-    highlightPotLine(Math.round(data.riceCups * 2));
+    const closestLine = [2, 4, 6, 8, 10].find(num => Math.abs(potLineNum - num) <= 0.25);
+    highlightPotLine(closestLine || null);
   }
 
   // 3. Rice HUD Callout (Always visible)
@@ -819,7 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnPlus) {
     btnPlus.addEventListener('click', () => {
-      selectedRiceCups = Math.min(5.0, Math.round((selectedRiceCups + 0.25) * 4) / 4);
+      selectedRiceCups = Math.min(6.0, Math.round((selectedRiceCups + 0.25) * 4) / 4);
       updateUI({ animatePour: true });
     });
   }

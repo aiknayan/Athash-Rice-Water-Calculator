@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Panasonic SR-DL184 Rice & Water Calculator</title>
   <meta name="description" content="Clean interactive calculator for Panasonic SR-DL184 Rice Cooker. Select rice amount and see exact water measurements.">
-  <link rel="stylesheet" href="css/style.css?v=2.2">
+  <link rel="stylesheet" href="css/style.css?v=3.1">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍚</text></svg>">
 </head>
 <body>
@@ -28,7 +28,7 @@
         <h2>Select Rice Amount</h2>
       </div>
 
-      <!-- Quick Select Buttons (0.5 to 5.0 Cups) -->
+      <!-- Quick Select Buttons (0.5 to 6.0 Cups) -->
       <div class="quick-pill-row" id="quickButtons">
         <button class="pill-btn" data-cups="0.5">0.5 Cup</button>
         <button class="pill-btn" data-cups="1.0">1.0 Cup</button>
@@ -40,6 +40,8 @@
         <button class="pill-btn" data-cups="4.0">4.0 Cups</button>
         <button class="pill-btn" data-cups="4.5">4.5 Cups</button>
         <button class="pill-btn" data-cups="5.0">5.0 Cups</button>
+        <button class="pill-btn" data-cups="5.5">5.5 Cups</button>
+        <button class="pill-btn" data-cups="6.0">6.0 Cups</button>
       </div>
 
       <!-- Stepper Controls & Slider -->
@@ -54,14 +56,15 @@
       </div>
 
       <div class="slider-track-wrap">
-        <input type="range" id="riceSlider" class="clean-slider" min="0.25" max="5.0" step="0.25" value="2.0">
+        <input type="range" id="riceSlider" class="clean-slider" min="0.25" max="6.0" step="0.25" value="2.0">
         <div class="slider-marks">
           <span>0.5c</span>
           <span>1.0c</span>
           <span>2.0c ⭐</span>
           <span>3.0c</span>
           <span>4.0c</span>
-          <span>5.0c (Max)</span>
+          <span>5.0c</span>
+          <span>6.0c (Max)</span>
         </div>
       </div>
     </section>
@@ -156,8 +159,8 @@
               <line id="svgPotRiceLine" x1="40" y1="289" x2="400" y2="289" stroke="#ffffff" stroke-width="2"/>
 
               <!-- Water Layer Above (Strictly horizontal straight line) -->
-              <rect id="svgPotWaterRect" x="30" y="231" width="380" height="58" fill="url(#potWaterGrad)"/>
-              <line id="svgPotWaterLine" x1="40" y1="231" x2="400" y2="231" stroke="#ffffff" stroke-width="2.5"/>
+              <rect id="svgPotWaterRect" x="30" y="244" width="380" height="45" fill="url(#potWaterGrad)"/>
+              <line id="svgPotWaterLine" x1="40" y1="244" x2="400" y2="244" stroke="#ffffff" stroke-width="2.5"/>
             </g>
 
             <!-- Stamped Scale on Left Wall (Panasonic 10-Cup Pot Lines) -->
@@ -183,8 +186,8 @@
               <line x1="63" y1="210" x2="79" y2="210" stroke="rgba(148, 163, 184, 0.45)" stroke-width="1.2"/>
 
               <!-- Line 4 (Y = 231) -->
-              <line id="potLine4" x1="66" y1="231" x2="90" y2="231" stroke="#38bdf8" stroke-width="2.4"/>
-              <text id="potText4" x="96" y="234.5" font-size="12" font-weight="900" fill="#38bdf8">4</text>
+              <line id="potLine4" x1="66" y1="231" x2="90" y2="231" stroke="#94a3b8" stroke-width="2"/>
+              <text id="potText4" x="96" y="234.5" font-size="11" font-weight="800" fill="#cbd5e1">4</text>
               <!-- Notch 3 -->
               <line x1="70" y1="252" x2="86" y2="252" stroke="rgba(148, 163, 184, 0.45)" stroke-width="1.2"/>
 
@@ -202,7 +205,7 @@
             </g>
 
             <!-- Sleek HUD Pointers on Right (NO line number beside water!) -->
-            <g id="svgHudWater" transform="translate(0, 231)">
+            <g id="svgHudWater" transform="translate(0, 244)">
               <line id="svgHudWaterLine" x1="260" y1="0" x2="225" y2="0" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 2"/>
               <circle id="svgHudWaterDot" cx="225" cy="0" r="2.5" fill="#38bdf8"/>
               <rect x="260" y="-13" width="135" height="26" rx="6" fill="#0b1320" stroke="#38bdf8" stroke-width="1.4"/>
@@ -258,6 +261,6 @@
 
   </div>
 
-  <script src="js/app.js?v=2.2"></script>
+  <script src="js/app.js?v=3.1"></script>
 </body>
 </html>

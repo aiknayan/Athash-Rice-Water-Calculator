@@ -134,8 +134,8 @@ body {
 /* STEP 1: Rice Selector Card */
 .quick-pill-row {
   display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 5px;
   margin-bottom: 16px;
   width: 100%;
 }
@@ -713,9 +713,9 @@ body {
     font-size: 11px;
   }
 
-  /* Quick Pills: 2 rows of 5 buttons with in-line star */
+  /* Quick Pills: 2 rows of 6 buttons with in-line star */
   .quick-pill-row {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 4px;
     margin-bottom: 12px;
   }
@@ -821,7 +821,7 @@ body {
   }
 
   .quick-pill-row {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 3px;
   }
 
