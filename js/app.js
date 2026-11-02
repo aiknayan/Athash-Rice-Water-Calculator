@@ -73,47 +73,45 @@ function calculateWater(riceCups) {
   };
 }
 
-const POT_SCALE_LINES = [
+const POT_NUMBERED_LINES = [
   { num: 1, y: 294 },
   { num: 2, y: 273 },
-  { isNotch: true, elId: 'potNotch3', y: 252 },
   { num: 4, y: 231 },
-  { isNotch: true, elId: 'potNotch5', y: 210 },
   { num: 6, y: 189 },
-  { isNotch: true, elId: 'potNotch7', y: 168 },
   { num: 8, y: 147 },
-  { isNotch: true, elId: 'potNotch9', y: 126 },
   { num: 10, y: 105 }
 ];
 
 /**
  * Updates the glow effect on pot gauge lines:
- * Whenever water reaches or crosses a line, that number & line light up with the glowing cyan effect!
+ * Only the immediate crossed line (the one right below the water surface) glows!
  */
 function updatePotGaugeLines(currentWaterY) {
-  POT_SCALE_LINES.forEach(item => {
-    // Water has crossed or reached this line if currentWaterY <= item.y + 2
-    const isCrossed = currentWaterY <= (item.y + 2);
+  // Find all numbered lines that the water has crossed (with a small 4px threshold)
+  const crossedLines = POT_NUMBERED_LINES.filter(item => currentWaterY <= (item.y + 4));
 
-    if (item.isNotch) {
-      const notchEl = document.getElementById(item.elId);
-      if (notchEl) {
-        if (isCrossed) notchEl.classList.add('active-pot-line');
-        else notchEl.classList.remove('active-pot-line');
-      }
-    } else {
-      const lineEl = document.getElementById(`potLine${item.num}`);
-      const textEl = document.getElementById(`potText${item.num}`);
-      if (lineEl && textEl) {
-        if (isCrossed) {
-          lineEl.classList.add('active-pot-line');
-          textEl.classList.add('active-pot-line');
-        } else {
-          lineEl.classList.remove('active-pot-line');
-          textEl.classList.remove('active-pot-line');
-        }
+  // The immediate crossed line is the highest one reached (closest to water surface)
+  const activeLine = crossedLines.length > 0 ? crossedLines[crossedLines.length - 1] : null;
+  const activeNum = activeLine ? activeLine.num : null;
+
+  POT_NUMBERED_LINES.forEach(item => {
+    const lineEl = document.getElementById(`potLine${item.num}`);
+    const textEl = document.getElementById(`potText${item.num}`);
+    if (lineEl && textEl) {
+      if (item.num === activeNum) {
+        lineEl.classList.add('active-pot-line');
+        textEl.classList.add('active-pot-line');
+      } else {
+        lineEl.classList.remove('active-pot-line');
+        textEl.classList.remove('active-pot-line');
       }
     }
+  });
+
+  // Ensure notches don't glow
+  [3, 5, 7, 9].forEach(n => {
+    const notchEl = document.getElementById(`potNotch${n}`);
+    if (notchEl) notchEl.classList.remove('active-pot-line');
   });
 }
 
